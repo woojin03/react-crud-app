@@ -1,32 +1,29 @@
-import './ExpenseList.css';
-import ExpenseItem from './ExpenseItem';
-import React from 'react';
+import React from "react";
+import "./ExpenseList.css";
+import ExpenseItem from "./ExpenseItem";
+import { MdDelete } from "react-icons/md";
 
-export const ExpenseList = ({initialExpenses, handleDelete}) => {
-  if (!initialExpenses) {
-    initialExpenses = [];
-  } 
-
+const ExpenseList = ({ expenses,initialExpenses, handleDelete, handleEdit,clearItems }) => {
   return (
-    <React.Fragment>
-      <ul className='list'>
-        {initialExpenses.map(expense => {
-          if (expense) {
-            return (
-              <ExpenseItem key={expense.id} expense={expense}
-              handleDelete={handleDelete}
-              />
-            )
-          } else {
-            return null;
-          }
+    <>
+      <ul className="list">
+        {initialExpenses.map((expense) => {
+          return (
+            <ExpenseItem
+              key={expense.id}
+              expense={expense}
+              handleDelete={handleDelete} handleEdit={handleEdit}
+            />
+          );
         })}
       </ul>
-      <button className='btn'>
+      {expenses.length>0?<button className="btn" onClick={clearItems}>
         목록 지우기
-      </button>
-    </React.Fragment>
-  )
-}
+        <MdDelete className="btn-icon"/>
+        </button>
+        :null}
+    </>
+  );
+};
 
-export default ExpenseList
+export default ExpenseList;
